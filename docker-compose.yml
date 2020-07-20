@@ -1,0 +1,8 @@
+version: '2.1'
+services:
+  app_1:
+    build: ./noisy-1
+  app_2:
+    build: ./noisy-1
+  app_3:
+    build: ./noisy-1
