@@ -89,6 +89,61 @@ You could probably accelerate this problem by having more services
 (the customer, for example, has 13), and by adding more cruft to the
 image to fill it up (big file of random data, say).
 
+
+## `sad_case-images_pile_up-WORKAROUND` branch: Sad case plus workaround
+
+The workaround we've found for this is to add a unique tag to each
+`image:` stanza.  Here's a diff with the sad case branch:
+
+```
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -2,10 +2,10 @@ version: '2.1'
+ services:
+   app_1:
+     build: ./noisy-1
+-    image: noisy1
++    image: noisy1:noisy1
+   app_2:
+     build: ./noisy-1
+-    image: noisy1
++    image: noisy1:noisy2
+   app_3:
+     build: ./noisy-1
+-    image: noisy1
++    image: noisy1:noisy3
+```
+
+Check out that branch, and push out a new release:
+
+```
+git checkout -b sad_case-images_pile_up
+./create_release.sh
+```
+
+Now, push out a few more releases by running `create_release`.  After
+each release:
+
+- watch the dashboard to see that the release has made it do the
+device
+- run these commands on a `balena ssh` session to your device:
+
+```
+date ; \
+	balena ps -a ; \
+	echo '------------------'; \
+	balena images --digests ; \
+	echo '------------------'; \
+	echo -n 'Total images: ' ; \
+	balena images | wc -l ; \
+	echo '------------------'; \
+	df /mnt/data
+```
+
+What you should see is that the total number of images *is the same*.
+Disk space will decrease *very* slowly due to the comment we're adding
+each commit, but the number of images will remain the same.
+
 # License
 
 Apache v2; see `LICENSE`.
