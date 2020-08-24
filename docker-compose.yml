@@ -2,10 +2,10 @@ version: '2.1'
 services:
   app_1:
     build: ./noisy-1
-    image: noisy1
+    image: noisy1:noisy1
   app_2:
     build: ./noisy-1
-    image: noisy1
+    image: noisy1:noisy2
   app_3:
     build: ./noisy-1
-    image: noisy1
+    image: noisy1:noisy3
