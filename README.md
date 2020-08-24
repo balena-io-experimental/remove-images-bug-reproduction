@@ -2,6 +2,8 @@
 
 JF Link:  https://jel.ly.fish/81f483e7-e8e3-41c0-b0b1-bb549eddbe20
 
+Github issue: https://github.com/balena-io/balena-supervisor/issues/1434
+
 # Usage
 
 ## Setup
